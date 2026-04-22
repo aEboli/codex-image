@@ -1,0 +1,6 @@
+interface:
+  display_name: "Codex Image"
+  short_description: "Use gpt-image-2 in Codex and save outputs locally"
+  default_prompt: "Use $codex-image to generate and save a local image with gpt-image-2 through /responses."
+policy:
+  allow_implicit_invocation: true
