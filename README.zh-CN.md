@@ -1,79 +1,70 @@
-# Codex Image
+# Codex Image 中文扩展说明
 
-`codex-image` 是一个给 Codex 使用的技能，用来直接通过 Responses API 调用 `gpt-image-2`，并把最终图片保存到本地工作区。
+## 定位
 
-这个仓库包含：
+`codex-image` 不是一个“随便生图”的包装，而是一个专门把 Codex、`gpt-image-2`、`/responses`、本地工作区输出这条链路固定下来的 skill。
 
-- 可安装的技能目录 [`codex-image/`](./codex-image)
-- 英文完整手册 [`docs/MANUAL.en.md`](./docs/MANUAL.en.md)
-- 中文完整手册 [`docs/MANUAL.zh-CN.md`](./docs/MANUAL.zh-CN.md)
+适合这些用户：
 
-## 主要作用
+- 想在 Codex 里直接用 `gpt-image-2`
+- 想走 `/responses` 而不是其他路径
+- 想复用 Codex 本机配置和 auth
+- 想要明确的本地落盘结果
+- 想保留参考图输入能力
 
-- 通过 `/responses` 调用 `gpt-image-2`
-- 复用 Codex 本机 `~/.codex/config.toml` 配置
-- 复用 Codex 本机 `~/.codex/auth.json` 鉴权
-- 支持纯提示词生图
-- 支持参考图引导生图
-- 直接把结果保存到当前工作区
-- 同时提供 Node.js 入口和 PowerShell 包装脚本
+## 最好显式使用
 
-## 最佳实践
-
-建议最好显式使用。
-
-推荐写法：
+强烈建议这样写：
 
 ```text
-用 $codex-image 生成一张蜂蜜产品海报，并保存到当前工作区。
+用 $codex-image 生成一张产品图，并保存到当前工作区。
 ```
 
-或者：
+不要太依赖隐式触发，因为显式调用：
+
+1. 更稳定
+2. 更清晰
+3. 更不容易和其他图像 skill 混淆
+
+## 访客安装命令
+
+### Windows
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aEboli/codex-image/main/install.ps1 | iex"
+```
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh | bash
+```
+
+## 本地调用
+
+### Codex 对话
 
 ```text
-Use $codex-image to generate a product image and save it to the current workspace.
+用 $codex-image 生成一张蜂蜜产品海报，并保存到当前项目 output 目录。
 ```
 
-为什么显式使用更好：
-
-- 触发最稳定
-- 不容易和其他图片类 skill 冲突
-- 能明确告诉 Codex 你就是要走 `gpt-image-2` + `/responses`
-
-## 安装方式
-
-把 [`codex-image/`](./codex-image) 整个目录复制到：
-
-```text
-~/.codex/skills/codex-image
-```
-
-Windows 通常对应：
-
-```text
-C:\Users\<你的用户名>\.codex\skills\codex-image
-```
-
-## 快速使用
-
-在 Codex 对话里：
-
-```text
-用 $codex-image 生成一张竖版产品海报，并保存到当前项目 output 目录。
-```
-
-在 PowerShell 里：
+### PowerShell
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\codex-image\scripts\generate-image.ps1" `
   -Prompt "生成一张玻璃蜂蜜罐的干净产品图"
 ```
 
-## 文档
+### Node.js
 
-- English: [`docs/MANUAL.en.md`](./docs/MANUAL.en.md)
-- 中文: [`docs/MANUAL.zh-CN.md`](./docs/MANUAL.zh-CN.md)
+```powershell
+node ".\codex-image\scripts\generate-image.mjs" `
+  --prompt "生成一张玻璃蜂蜜罐的干净产品图"
+```
 
-## 许可证
+## 文档入口
 
-[MIT](./LICENSE)
+- 中文主首页：[README.md](./README.md)
+- 中文手册：[docs/MANUAL.zh-CN.md](./docs/MANUAL.zh-CN.md)
+- 英文说明：[README.en.md](./README.en.md)
+- 英文手册：[docs/MANUAL.en.md](./docs/MANUAL.en.md)

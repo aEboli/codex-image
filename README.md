@@ -1,77 +1,162 @@
+<div align="center">
+
 # Codex Image
 
-`codex-image` is a Codex skill for using `gpt-image-2` directly inside Codex through the Responses API and saving the final image into your local workspace.
+### 直接在 Codex 中使用 `gpt-image-2` 的技能
+### A Codex Skill for Direct `gpt-image-2` Usage
 
-This repository contains:
+<p>
+  <a href="./README.en.md">English</a> ·
+  <a href="./README.zh-CN.md">中文扩展说明</a> ·
+  <a href="./docs/MANUAL.zh-CN.md">中文手册</a> ·
+  <a href="./docs/MANUAL.en.md">English Manual</a>
+</p>
 
-- the installable skill folder at [`codex-image/`](./codex-image)
-- an English manual at [`docs/MANUAL.en.md`](./docs/MANUAL.en.md)
-- a Chinese manual at [`docs/MANUAL.zh-CN.md`](./docs/MANUAL.zh-CN.md)
+<p>
+  <strong>建议最好显式使用：</strong> <code>$codex-image</code>
+</p>
 
-## What It Does
+<p>
+  <strong>Recommended best practice:</strong> invoke <code>$codex-image</code> explicitly
+</p>
 
-- uses `gpt-image-2` through `/responses`
-- reuses Codex local config from `~/.codex/config.toml`
-- reuses Codex auth from `~/.codex/auth.json`
-- supports prompt-only generation and reference-image-guided generation
-- saves outputs directly into the current workspace
-- provides both a Node.js entrypoint and a PowerShell wrapper
+</div>
 
-## Best Practice
+---
 
-Explicit invocation is recommended.
+## 中文优先说明
 
-Use:
+`codex-image` 是一个给 Codex 使用的 skill，用来直接通过 `/responses` 调用 `gpt-image-2`，并把生成结果保存到当前工作区。
 
-```text
-Use $codex-image to generate a product image and save it to the current workspace.
-```
+它的核心目标不是“泛化生图”，而是：
 
-or:
+- 明确走 `gpt-image-2`
+- 明确走 `/responses`
+- 明确复用 Codex 本机配置
+- 明确把文件落到当前工作区
+- 明确支持参考图输入
+
+如果你只记一件事，就是这句：
 
 ```text
 用 $codex-image 生成一张产品图，并保存到当前工作区。
 ```
 
-Why explicit use is better:
+---
 
-- it is the most reliable trigger path
-- it avoids overlap with other image-related skills
-- it makes it clear that you want `gpt-image-2` plus `/responses`
+## 一键安装
 
-## Installation
+### Windows PowerShell
 
-Copy the [`codex-image/`](./codex-image) folder into:
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aEboli/codex-image/main/install.ps1 | iex"
+```
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh | bash
+```
+
+安装完成后，skill 会落到：
 
 ```text
 ~/.codex/skills/codex-image
 ```
 
-On Windows this is typically:
+Windows 通常对应：
 
 ```text
-C:\Users\<your-user>\.codex\skills\codex-image
+C:\Users\<你的用户名>\.codex\skills\codex-image
 ```
 
-## Quick Usage
+---
 
-In Codex chat:
+## 最佳实践
+
+### 强烈建议显式使用
+
+推荐写法：
 
 ```text
-Use $codex-image to generate a vertical ad image for a honey product and save it locally.
+用 $codex-image 生成一张蜂蜜产品海报，并保存到当前工作区。
 ```
 
-In PowerShell:
+或：
+
+```text
+Use $codex-image to generate and save a local image with gpt-image-2.
+```
+
+为什么最好显式使用：
+
+- 触发最稳定
+- 不会和其他图片相关 skill 抢触发
+- 能明确告诉 Codex 你要走 `gpt-image-2` 和 `/responses`
+
+---
+
+## 主要能力
+
+- 通过 `/responses` 调用 `gpt-image-2`
+- 默认复用 `~/.codex/config.toml`
+- 默认复用 `~/.codex/auth.json`
+- 支持纯提示词生图
+- 支持参考图引导生图
+- 直接把结果保存到当前工作区
+- 提供 Node.js CLI 和 PowerShell 包装脚本
+
+---
+
+## 快速使用
+
+### 在 Codex 对话里
+
+```text
+用 $codex-image 生成一张竖版产品海报，并保存到当前项目 output 目录。
+```
+
+### 在终端里
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\codex-image\scripts\generate-image.ps1" `
-  -Prompt "Generate a clean product image for a glass honey jar"
+  -Prompt "生成一张玻璃蜂蜜罐的干净产品图"
 ```
 
-## Documentation
+---
 
-- English: [`docs/MANUAL.en.md`](./docs/MANUAL.en.md)
-- 中文: [`docs/MANUAL.zh-CN.md`](./docs/MANUAL.zh-CN.md)
+## 仓库内容
+
+- 技能目录：[`codex-image/`](./codex-image)
+- 中文完整手册：[`docs/MANUAL.zh-CN.md`](./docs/MANUAL.zh-CN.md)
+- 英文完整手册：[`docs/MANUAL.en.md`](./docs/MANUAL.en.md)
+- 中文扩展 README：[`README.zh-CN.md`](./README.zh-CN.md)
+- 英文 README：[`README.en.md`](./README.en.md)
+
+---
+
+## English Summary
+
+`codex-image` is a Codex skill for calling `gpt-image-2` through `/responses`, reusing local Codex config/auth, and saving outputs directly into the current workspace.
+
+Best practice:
+
+```text
+Use $codex-image to generate and save a local image with gpt-image-2.
+```
+
+Install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh | bash
+```
+
+More:
+
+- [English README](./README.en.md)
+- [English Manual](./docs/MANUAL.en.md)
+
+---
 
 ## License
 

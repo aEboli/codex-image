@@ -56,11 +56,27 @@ codex-image-2026-04-23/
 
 ## Installation
 
-Copy the `codex-image/` folder into your Codex skills directory:
+The recommended path is a one-line installer.
+
+### Windows PowerShell
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aEboli/codex-image/main/install.ps1 | iex"
+```
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh | bash
+```
+
+After installation, the skill is placed at:
 
 ```text
 ~/.codex/skills/codex-image
 ```
+
+If you prefer a manual setup, copy the repository's `codex-image/` folder into that location.
 
 ## Configuration Resolution
 

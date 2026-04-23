@@ -56,11 +56,27 @@ codex-image-2026-04-23/
 
 ## 安装方式
 
-把 `codex-image/` 目录复制到 Codex 的技能目录：
+推荐直接一键安装。
+
+### Windows PowerShell
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/aEboli/codex-image/main/install.ps1 | iex"
+```
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh | bash
+```
+
+安装后 skill 默认位于：
 
 ```text
 ~/.codex/skills/codex-image
 ```
+
+如果你想手动安装，也可以把仓库中的 `codex-image/` 目录复制到上面的路径。
 
 ## 配置读取顺序
 
