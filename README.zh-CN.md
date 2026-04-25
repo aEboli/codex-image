@@ -2,7 +2,7 @@
 
 ## 定位
 
-`codex-image` 不是一个“随便生图”的包装，而是一个专门把 Codex、`gpt-image-2`、`/responses`、本地工作区输出这条链路固定下来的 skill。
+`codex-image` 不是一个“随便生图”的包装，而是一个专门把 Codex、`gpt-image-2`、`/responses`、本地日期目录输出这条链路固定下来的 skill。
 
 适合这些用户：
 
@@ -17,7 +17,7 @@
 强烈建议这样写：
 
 ```text
-用 $codex-image 生成一张产品图，并保存到当前工作区。
+用 $codex-image 生成一张产品图，默认保存到 Pictures 日期目录。
 ```
 
 不要太依赖隐式触发，因为显式调用：
@@ -45,7 +45,17 @@ curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh 
 ### Codex 对话
 
 ```text
-用 $codex-image 生成一张蜂蜜产品海报，并保存到当前项目 output 目录。
+用 $codex-image 生成一张蜂蜜产品海报，默认保存到 Pictures 日期目录。
+
+## 默认输出目录
+
+如果没有显式传 `--output` 或 `-Output`，脚本会默认保存到：
+
+```text
+C:\Users\<你的用户名>\Pictures\YYYY-MM-DD\generated-<timestamp>.<format>
+```
+
+如果你要改位置，继续传 `--output` 或 `-Output` 即可。
 ```
 
 ### PowerShell

@@ -2,7 +2,7 @@
 
 ## Overview
 
-`codex-image` is a Codex skill focused on one job: use `gpt-image-2` through the Responses API from inside Codex and save the output locally.
+`codex-image` is a Codex skill focused on one job: use `gpt-image-2` through the Responses API from inside Codex and save the output into the user's dated `Pictures` folder by default.
 
 ## Why This Skill Exists
 
@@ -12,7 +12,7 @@ It is especially useful when you want:
 
 - `gpt-image-2` specifically
 - `/responses` specifically
-- direct workspace output files
+- direct dated-folder output files
 - reference-image-based generation
 - reuse of existing Codex config and auth
 
@@ -23,7 +23,7 @@ Explicit invocation is strongly recommended.
 Recommended:
 
 ```text
-Use $codex-image to generate a vertical ad image for a honey product and save it to the current workspace.
+Use $codex-image to generate a vertical ad image for a honey product and save it into the dated Pictures folder.
 ```
 
 Why:
@@ -51,6 +51,8 @@ codex-image-2026-04-23/
       ├─ codex-config.mjs
       ├─ generate-image.mjs
       ├─ generate-image.ps1
+      ├─ output-path.mjs
+      ├─ output-path.test.mjs
       └─ responses-workflow.mjs
 ```
 
@@ -128,7 +130,7 @@ powershell -ExecutionPolicy Bypass -File ".\codex-image\scripts\generate-image.p
 
 ## Output Behavior
 
-- Default output path: `output/generated-<timestamp>.<format>`
+- Default output path: `C:\Users\<username>\Pictures\YYYY-MM-DD\generated-<timestamp>.<format>`
 - You can override the output path manually
 - The script reports where `base_url`, model, and API key came from
 

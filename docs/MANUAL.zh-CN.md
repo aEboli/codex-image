@@ -2,7 +2,7 @@
 
 ## 概述
 
-`codex-image` 是一个专门做一件事的 Codex skill：在 Codex 内通过 Responses API 调用 `gpt-image-2`，并把图片保存到本地工作区。
+`codex-image` 是一个专门做一件事的 Codex skill：在 Codex 内通过 Responses API 调用 `gpt-image-2`，并把图片默认保存到用户 `Pictures/YYYY-MM-DD` 日期目录。
 
 ## 为什么需要这个技能
 
@@ -12,7 +12,7 @@
 
 - 明确要用 `gpt-image-2`
 - 明确要走 `/responses`
-- 明确要把文件落到当前工作区
+- 明确要把文件落到本地固定日期目录
 - 明确要根据参考图出图
 - 希望复用 Codex 现有配置和鉴权
 
@@ -23,7 +23,7 @@
 推荐写法：
 
 ```text
-用 $codex-image 生成一张蜂蜜产品竖版海报，并保存到当前工作区。
+用 $codex-image 生成一张蜂蜜产品竖版海报，默认保存到 Pictures 日期目录。
 ```
 
 为什么：
@@ -51,6 +51,8 @@ codex-image-2026-04-23/
       ├─ codex-config.mjs
       ├─ generate-image.mjs
       ├─ generate-image.ps1
+      ├─ output-path.mjs
+      ├─ output-path.test.mjs
       └─ responses-workflow.mjs
 ```
 
@@ -97,7 +99,7 @@ Codex 本机配置来源：
 ### 1. 在 Codex 对话里
 
 ```text
-用 $codex-image 生成一张产品图，并保存到当前工作区。
+用 $codex-image 生成一张产品图，默认保存到 Pictures 日期目录。
 ```
 
 ### 2. 用 Node.js CLI
@@ -128,7 +130,7 @@ powershell -ExecutionPolicy Bypass -File ".\codex-image\scripts\generate-image.p
 
 ## 输出行为
 
-- 默认输出路径：`output/generated-<timestamp>.<format>`
+- 默认输出路径：`C:\Users\<用户名>\Pictures\YYYY-MM-DD\generated-<timestamp>.<format>`
 - 可以手动覆盖输出路径
 - 脚本会打印 `base_url`、模型、API Key 的来源
 

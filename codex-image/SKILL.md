@@ -1,11 +1,11 @@
 ---
 name: codex-image
-description: Use Codex directly with `gpt-image-2` through the Responses API and save images into the current workspace. Prefer explicit invocation with `$codex-image`. Use when the user mentions `gpt-image-2`, `Responses API`, `POST /responses`, reference-image-guided generation, Codex config reuse, local output paths, or a reproducible local CLI workflow. Typical Chinese triggers include “用 $codex-image 生图”, “用 Codex 配置直接调用 gpt-image-2”, “根据参考图出图”, “保存到 output 目录”, and “不要走普通 images API”.
+description: Use Codex directly with `gpt-image-2` through the Responses API and save images locally, defaulting to the user's dated Pictures folder. Prefer explicit invocation with `$codex-image`. Use when the user mentions `gpt-image-2`, `Responses API`, `POST /responses`, reference-image-guided generation, Codex config reuse, local output paths, or a reproducible local CLI workflow. Typical Chinese triggers include “用 $codex-image 生图”, “用 Codex 配置直接调用 gpt-image-2”, “根据参考图出图”, and “不要走普通 images API”.
 ---
 
 # Codex Image
 
-用这个 skill 在 Codex 里直接调用 `gpt-image-2`，默认复用 Codex 本机配置，并把最终图片保存到当前工作区。
+用这个 skill 在 Codex 里直接调用 `gpt-image-2`，默认复用 Codex 本机配置，并把最终图片保存到用户 `Pictures/YYYY-MM-DD` 目录。
 
 ## Preferred Invocation
 
@@ -19,7 +19,7 @@ description: Use Codex directly with `gpt-image-2` through the Responses API and
 
 推荐说法：
 
-- `用 $codex-image 生成一张极简风产品海报，保存到当前项目 output 目录。`
+- `用 $codex-image 生成一张极简风产品海报，默认保存到 Pictures 日期目录。`
 - `Use $codex-image to generate a vertical product image with gpt-image-2 and save it locally.`
 
 ## Quick Start
@@ -35,7 +35,7 @@ description: Use Codex directly with `gpt-image-2` through the Responses API and
 - 用户明确要在 Codex 里直接使用 `gpt-image-2`
 - 用户明确提到 `Responses API`、`POST /responses`、代理 `base-url`
 - 用户要根据参考图生成
-- 用户要把图片直接保存到当前工作区
+- 用户要把图片直接保存到本地固定目录，默认走 `Pictures/YYYY-MM-DD`
 - 用户要一个可复用、可审计、可脚本化的本地 CLI 路径
 
 ## When Not To Use
@@ -47,7 +47,7 @@ description: Use Codex directly with `gpt-image-2` through the Responses API and
 ## Workflow
 
 1. Extract or refine the prompt.
-2. Decide the output path. Default to `output/generated-<timestamp>.<format>`.
+2. Decide the output path. Default to `<home>/Pictures/YYYY-MM-DD/generated-<timestamp>.<format>`.
 3. Add reference images when the request depends on them.
 4. Let the script auto-resolve API key, base URL, outer model, and reasoning effort from Codex config unless the user explicitly overrides them.
 5. Run the script.

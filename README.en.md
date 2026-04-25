@@ -1,6 +1,6 @@
 # Codex Image
 
-`codex-image` is a Codex skill for using `gpt-image-2` directly through `/responses`, with local workspace output and Codex config reuse.
+`codex-image` is a Codex skill for using `gpt-image-2` directly through `/responses`, with default output into the user's dated `Pictures` folder and Codex config reuse.
 
 ## Recommended Usage
 
@@ -29,6 +29,16 @@ curl -fsSL https://raw.githubusercontent.com/aEboli/codex-image/main/install.sh 
 - most reliable trigger path
 - avoids overlap with other image-related skills
 - makes the `gpt-image-2` plus `/responses` path explicit
+
+## Default Output Location
+
+When `--output` is not provided, images are saved to:
+
+```text
+C:\Users\<username>\Pictures\YYYY-MM-DD\generated-<timestamp>.<format>
+```
+
+You can still override this with `--output` or `-Output`.
 
 ## Docs
 

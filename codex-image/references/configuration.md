@@ -25,6 +25,11 @@ The scripts resolve settings in this order:
 3. Local Codex config
 4. Hardcoded defaults
 
+## Default Output Path
+
+- If you do not pass `--output` or `-Output`, the image is saved to `<home>/Pictures/YYYY-MM-DD/generated-<timestamp>.<format>`.
+- On Windows this resolves to `C:\Users\<username>\Pictures\YYYY-MM-DD\...`.
+
 Default Codex config location:
 
 - `CODEX_HOME`

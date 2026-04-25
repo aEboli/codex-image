@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, extname, resolve } from "node:path";
 
 import { readCodexRuntimeConfig } from "./codex-config.mjs";
+import { buildOutputPath } from "./output-path.mjs";
 import {
   DEFAULT_IMAGE_MODEL,
   normalizeBase64,
@@ -31,7 +32,7 @@ function printHelp() {
   --quality            图片质量，默认 ${DEFAULT_QUALITY}
   --format             输出格式，默认 ${DEFAULT_FORMAT}
   --background         背景模式，默认 ${DEFAULT_BACKGROUND}
-  --output             输出文件路径，默认 output/generated-<timestamp>.<format>
+  --output             输出文件路径，默认 <home>/Pictures/YYYY-MM-DD/generated-<timestamp>.<format>
   --base-url           接口根路径，优先级：命令行 > 环境变量 > Codex config > ${DEFAULT_BASE_URL}
   --model              外层 Responses 模型，优先级：命令行 > 环境变量 > Codex config > ${DEFAULT_MODEL}
   --reasoning-effort   可选推理强度，不传则不发送 reasoning 字段
@@ -148,15 +149,6 @@ function parseArgs(argv) {
 function normalizeFormat(format) {
   const normalized = format.trim().toLowerCase();
   return normalized === "jpg" ? "jpeg" : normalized;
-}
-
-function buildOutputPath(outputPath, format) {
-  if (outputPath) {
-    return resolve(outputPath);
-  }
-
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  return resolve("output", `generated-${timestamp}.${format}`);
 }
 
 function inferMimeType(filePath) {
@@ -390,7 +382,10 @@ async function main() {
     throw new Error("上游响应结束，但没有拿到最终图片。");
   }
 
-  const outputPath = buildOutputPath(options.output, options.format);
+  const outputPath = buildOutputPath({
+    outputPath: options.output,
+    format: options.format,
+  });
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, Buffer.from(normalizeBase64(result.finalImageBase64), "base64"));
 
